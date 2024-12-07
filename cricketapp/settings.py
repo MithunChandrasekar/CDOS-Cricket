@@ -16,6 +16,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSRF_TRUSTED_ORIGINS = [
     'https://f69f9e6d5c8946998c8b1caa066ac7a4.vfs.cloud9.eu-west-1.amazonaws.com',
+    'x23271281Cricketapp.eba-bx7s7aes.eu-west-1.elasticbeanstalk.com',
 ]
 
 # Quick-start development settings - unsuitable for production
