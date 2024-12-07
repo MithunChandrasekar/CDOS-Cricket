@@ -16,7 +16,8 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 CSRF_TRUSTED_ORIGINS = [
     'https://f69f9e6d5c8946998c8b1caa066ac7a4.vfs.cloud9.eu-west-1.amazonaws.com',
-    'x23271281Cricketapp.eba-bx7s7aes.eu-west-1.elasticbeanstalk.com',
+    'https://x23271281Cricketapp.eba-bx7s7aes.eu-west-1.elasticbeanstalk.com',
+    'https://172.31.41.63',
 ]
 
 # Quick-start development settings - unsuitable for production
@@ -28,7 +29,7 @@ SECRET_KEY = 'django-insecure-*exidvhw#y!zxcu+d!l2b3oyu&pl@&)#3#^mtu3kpw)ycgk5)g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['f69f9e6d5c8946998c8b1caa066ac7a4.vfs.cloud9.eu-west-1.amazonaws.com','x23271281Cricketapp.eba-bx7s7aes.eu-west-1.elasticbeanstalk.com']
+ALLOWED_HOSTS = ['f69f9e6d5c8946998c8b1caa066ac7a4.vfs.cloud9.eu-west-1.amazonaws.com','x23271281Cricketapp.eba-bx7s7aes.eu-west-1.elasticbeanstalk.com', '172.31.41.63']
 
 
 # Application definition
