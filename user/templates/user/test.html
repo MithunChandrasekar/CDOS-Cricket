@@ -1,0 +1,92 @@
+{% extends 'user/navbar.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+    
+    <br>
+
+
+    <div class = 'shadow-lg m-10 rounded-lg container bg-white shadow-md p-5 form-layout'>
+        
+            <h1>Dashboard</h1>
+            <br>
+            <h3>{{user}}</h3> 
+            <br>
+        
+            <img style = "width : 90px; height : 70px" src="{{profilePic.profile_pic.url}}" alt="">
+            <br><br>
+            <a href="{% url 'user-logout' %}">Logout</a>
+        
+
+    </div>
+        
+    <h1>Welcome to the Cricket Scoreboard</h1>
+
+
+
+    <div class="container bg-white shadow-md p-5 form-layout">
+        
+        <h1> Add your matches</h1>
+        <br>
+        <br>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            {{AddMatchForm|crispy}}
+
+            <br><br>
+            
+            <button class = "btn btn-secondary btn-md w-100 btn-block p-3"  type="submit "> Update </button>
+
+
+        </form>
+        
+    </div>   
+
+    <!-- Display Messages -->
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <h2>Available Matches</h2>
+    <ul>
+        {% for match in matches %}
+            <li>
+                <a href="{% url 'match_detail' match.id %}">
+                    {{ match.team1 }} vs {{ match.team2 }} - {{ match.date }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No matches available</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Add a New Match</h2>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="team1">Team 1:</label>
+        <input type="text" id="team1" name="team1" required><br>
+
+        <label for="team2">Team 2:</label>
+        <input type="text" id="team2" name="team2" required><br>
+
+        <label for="overs">Overs:</label>
+        <input type="number" id="overs" name="overs" required><br>
+
+        <label for="team1_players">Team 1 Players (comma-separated):</label><br>
+        <textarea id="team1_players" name="team1_players" rows="3" required></textarea><br>
+
+        <label for="team2_players">Team 2 Players (comma-separated):</label><br>
+        <textarea id="team2_players" name="team2_players" rows="3" required></textarea><br>
+
+        <button type="submit">Add Match</button>
+    </form>
+
+
+
+ {% endblock content %}

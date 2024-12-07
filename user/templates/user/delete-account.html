@@ -1,0 +1,25 @@
+{% extends 'user/navbar.html' %}
+
+
+{% block content %}
+    <br>
+    <div class="container bg-white shadow-md p-5 form-layout">
+        
+        <h1> Delete your Account</h1>
+        <p>Are you sure to delete your account</p>
+        <br>
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            
+            <button class = "btn btn-secondary btn-md w-100 btn-block p-3"  type="submit "> Confirm Deletion </button>
+
+
+        </form>
+        <br>
+        <br>
+        <a href="{% url 'profile-management'%}">Return to Profile management</a>
+        <br>
+    </div>   
+ {% endblock content %}
+ 

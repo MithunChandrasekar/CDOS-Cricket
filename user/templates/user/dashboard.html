@@ -1,0 +1,51 @@
+{% extends 'user/navbar.html' %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<br>
+
+<!-- Dashboard Container -->
+<div class="shadow-lg m-10 rounded-lg container bg-white shadow-md p-5 form-layout">
+    <h1>Dashboard</h1>
+    <br>
+    <h3>{{ user }}</h3>
+    <br>
+    {% if profilePic %}
+        <img style="width: 90px; height: 70px;" src="{{ profilePic.profile_pic.url }}" alt="Profile Picture">
+    {% else %}
+        <p>No profile picture available</p>
+    {% endif %}
+    <br><br>
+    <a href="{% url 'user-logout' %}" class="btn btn-danger">Logout</a>
+</div>
+
+<!-- Welcome Message -->
+<h1>Welcome to the Cricket Scoreboard</h1>
+
+<!-- Add Matches Form -->
+<div class="container bg-white shadow-md p-5 form-layout">
+    <h1>Add Your Matches</h1>
+    <br><br>
+    <form method="POST" autocomplete="off">
+        {% csrf_token %}
+        {% csrf_token %}
+        {{ AddMatchForm.team1|as_crispy_field }}
+        {{ AddMatchForm.team2|as_crispy_field }}
+        {{ AddMatchForm.venue|as_crispy_field }}
+        <br><br>
+        <button class="btn btn-secondary btn-md w-100 btn-block p-3" type="submit">Update</button>
+    </form>
+</div>
+
+<h1> My Matches!</h1>
+    <br>
+
+    {% for user_matches in matches %}
+
+        <a href="{% url 'match_detail' user_matches.id %}">{{user_matches.team1}} vs {{user_matches.team2}} on {{user_matches.date}} overs {{user_matches.venue}} </a>  
+        <br>
+    {% endfor %} 
+
+
+{% endblock content %}

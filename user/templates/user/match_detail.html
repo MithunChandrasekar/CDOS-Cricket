@@ -1,0 +1,59 @@
+{% extends 'user/navbar.html' %}
+{% load static %}
+{% block content %}
+
+
+    <h1>Live Scoreboard: {{ match.team1 }} vs {{ match.team2 }}</h1>
+
+    <!-- Display Scoreboard -->
+    {% if scoreboard %}
+        <h2>Scoreboard</h2>
+        <p>{{ match.team1 }}: {{ scoreboard.team1_score }}/{{ scoreboard.team1_wickets }} - balls played {{scoreboard.team1_balls}}</p>
+        
+
+        <p>{{ match.team2 }}: {{ scoreboard.team2_score }}/{{ scoreboard.team2_wickets }}- balls played {{scoreboard.team2_balls}}</p>
+    {% else %}
+        <p>No scoreboard available yet.</p>
+    {% endif %}
+
+    <h2>Update Score</h2>
+    <form id="update-score-form">
+        {% csrf_token %}
+        <input type="hidden" name="match_id" value="{{ match.id }}">
+        <label for="teamname">Batting Team:</label>
+        <select name="teamname" id="teamname" required>
+            <option value="{{ match.team1 }}">{{ match.team1 }}</option>
+            <option value="{{ match.team2 }}">{{ match.team2 }}</option>
+        </select>
+        <label for="runs">Runs:</label>
+        <input type="number" name="runs" id="runs" value="0" min="0" required>
+        
+        <label for="is_wicket">Wicket:</label>
+        <input type="checkbox" name="is_wicket" id="is_wicket">
+        <button type="submit">Update Score</button>
+    </form>
+
+    <script>
+        // AJAX Form Submission
+        document.getElementById('update-score-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+
+            const response = await fetch('/update-scoreboard/{{ match.id }}/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': formData.get('csrfmiddlewaretoken'),
+                },
+            });
+
+            if (response.ok) {
+                location.reload();  // Reload page to show updated scoreboard
+            } else {
+                alert('Failed to update score!');
+            }
+        });
+    </script>
+
+
+{% endblock content %}
