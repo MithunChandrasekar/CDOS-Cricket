@@ -19,7 +19,7 @@
     <br><br>
     <a href="{% url 'user-logout' %}" class="btn btn-danger">Logout</a>
 </div>
-
+<br>
 <!-- Welcome Message -->
 <h1>Welcome to the Cricket Scoreboard</h1>
 
@@ -37,7 +37,7 @@
         <button class="btn btn-secondary btn-md w-100 btn-block p-3" type="submit">Update</button>
     </form>
 </div>
-
+<div class="container bg-white shadow-md p-5 form-layout">
 <h1> My Matches!</h1>
     <br>
 
@@ -47,5 +47,6 @@
         <br>
     {% endfor %} 
 
+</div>
 
 {% endblock content %}
