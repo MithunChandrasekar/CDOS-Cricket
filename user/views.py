@@ -1,7 +1,7 @@
 """
 This is the views.py file where all the logis of the application view is places
 """
-
+from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import auth
 from django.contrib.auth import authenticate
@@ -15,7 +15,7 @@ from .models import Profile, Match, Ball, Scoreboard
 from . forms import CreateUserForm, LoginForm, UpdateUserForm, UpdateProfileForm, AddMatchForm
 
 
-
+@require_http_methods(["GET"])
 def homepage(request):
     """
     This is the homepage view and landing page of the application
@@ -24,7 +24,7 @@ def homepage(request):
 
 
 
-
+@require_http_methods(["GET", "POST"])
 def register(request):
     """
     This is the regster page which uses create user form from forms.py
@@ -52,7 +52,7 @@ def register(request):
 
 
 
-
+@require_http_methods(["GET", "POST"])
 def my_login(request):
     """
     This is the loginpage which uses loginform from forms.py
@@ -79,7 +79,7 @@ def my_login(request):
 
 
 
-
+@require_http_methods(["GET"])
 def user_logout(request):
     """
     This is the logout function to redirect to homepage
@@ -89,7 +89,7 @@ def user_logout(request):
 
 
 
-
+@require_http_methods(["GET", "POST"])
 def update_scoreboard(request, match_id):
     """
     This is the scoreboard update function which updates the match detail page 
@@ -137,7 +137,7 @@ def update_scoreboard(request, match_id):
     return JsonResponse({'success': False}, status=400)
 
 
-
+@require_http_methods(["GET", "POST"])
 @login_required(login_url='my-login')
 def match_detail(request, match_id):
     """
@@ -150,7 +150,7 @@ def match_detail(request, match_id):
         'scoreboard': scoreboard,
     })
 
-
+@require_http_methods(["GET", "POST"])
 @login_required(login_url='my-login')
 def dashboard(request):
     """
@@ -179,7 +179,7 @@ def dashboard(request):
     }
     return render(request, 'user/dashboard.html', context)
 
-
+@require_http_methods(["GET", "POST"])
 @login_required(login_url ='my-login')
 def profile_management(request):
     """
@@ -207,7 +207,7 @@ def profile_management(request):
 
 
 
-
+@require_http_methods(["GET", "POST"])
 @login_required(login_url ='my-login')
 def delete_account(request):
     """

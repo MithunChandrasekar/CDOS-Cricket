@@ -14,11 +14,7 @@ from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-CSRF_TRUSTED_ORIGINS = [
-    'https://f69f9e6d5c8946998c8b1caa066ac7a4.vfs.cloud9.eu-west-1.amazonaws.com',
-    'https://x23271281Cricketapp.eba-bx7s7aes.eu-west-1.elasticbeanstalk.com',
-    'https://172.31.41.63',
-]
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -27,12 +23,9 @@ CSRF_TRUSTED_ORIGINS = [
 SECRET_KEY = 'django-insecure-*exidvhw#y!zxcu+d!l2b3oyu&pl@&)#3#^mtu3kpw)ycgk5)g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG', 'False').lower() in ('true', '1')
 
-ALLOWED_HOSTS = ['f69f9e6d5c8946998c8b1caa066ac7a4.vfs.cloud9.eu-west-1.amazonaws.com',
-                'x23271281Cricketapp.eba-bx7s7aes.eu-west-1.elasticbeanstalk.com', 
-                '172.31.41.63',
-                ]
+ALLOWED_HOSTS = os.getenv("DJANGO_ALLOWED_HOSTS", "").split(",")
 
 
 # Application definition
@@ -150,7 +143,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
 EMAIL_USE_TLS = 'True'
-
-EMAIL_HOST_USER = 'djangomitz@gmail.com'
-EMAIL_HOST_PASSWORD = 'wffk dmkx tyen nqre'
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', default='')  # Fetch from environment
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', default='')  # Fetch from environmen
 DEFAULT_FROM_EMAIL = 'djangomitz@gmail.com'
