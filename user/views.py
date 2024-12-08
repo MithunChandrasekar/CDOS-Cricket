@@ -1,6 +1,7 @@
 """
 This is the views.py file where all the logis of the application view is places
 """
+from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_http_methods
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import auth
@@ -23,7 +24,7 @@ def homepage(request):
     return render(request, 'user/index.html')
 
 
-
+@csrf_protect
 @require_http_methods(["GET", "POST"])
 def register(request):
     """
@@ -51,7 +52,7 @@ def register(request):
 
 
 
-
+@csrf_protect
 @require_http_methods(["GET", "POST"])
 def my_login(request):
     """
@@ -88,7 +89,7 @@ def user_logout(request):
     return redirect("")
 
 
-
+@csrf_protect
 @require_http_methods(["GET", "POST"])
 def update_scoreboard(request, match_id):
     """
@@ -136,7 +137,7 @@ def update_scoreboard(request, match_id):
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=400)
 
-
+@csrf_protect
 @require_http_methods(["GET", "POST"])
 @login_required(login_url='my-login')
 def match_detail(request, match_id):
@@ -150,6 +151,7 @@ def match_detail(request, match_id):
         'scoreboard': scoreboard,
     })
 
+@csrf_protect
 @require_http_methods(["GET", "POST"])
 @login_required(login_url='my-login')
 def dashboard(request):
@@ -179,6 +181,7 @@ def dashboard(request):
     }
     return render(request, 'user/dashboard.html', context)
 
+@csrf_protect
 @require_http_methods(["GET", "POST"])
 @login_required(login_url ='my-login')
 def profile_management(request):
@@ -206,7 +209,7 @@ def profile_management(request):
 
 
 
-
+@csrf_protect
 @require_http_methods(["GET", "POST"])
 @login_required(login_url ='my-login')
 def delete_account(request):
