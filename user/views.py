@@ -96,7 +96,7 @@ def update_scoreboard(request, match_id):
     """
     if request.method == "POST":
         match = get_object_or_404(Match, id=match_id)
-        scoreboard = Scoreboard.objects.get_or_create(match=match) # pylint: disable=no-member
+        scoreboard, _ = Scoreboard.objects.get_or_create(match=match) # pylint: disable=no-member
         # Ball details
         teamname = request.POST.get("teamname")
         runs = int(request.POST.get("runs"))
@@ -125,7 +125,6 @@ def update_scoreboard(request, match_id):
                 team2_score += ball.runs
                 if ball.is_wicket:
                     team2_wickets += 1
-
         # Update the scoreboard model
         scoreboard.team1_score = team1_score
         scoreboard.team2_score = team2_score
@@ -134,7 +133,6 @@ def update_scoreboard(request, match_id):
         scoreboard.team1_balls = team1_balls
         scoreboard.team2_balls = team2_balls
         scoreboard.save()
-
         return JsonResponse({'success': True})
     return JsonResponse({'success': False}, status=400)
 
